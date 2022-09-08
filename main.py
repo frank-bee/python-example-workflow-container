@@ -1,14 +1,11 @@
-import os
-import requests  # noqa We are just importing this to prove the dependency installed correctly
+# Sample taken from pyStrich GitHub repository
+# https://github.com/mmulqueen/pyStrich
+from pystrich.datamatrix import DataMatrixEncoder
+import sys
 
+print(len(sys.argv))
+print(str(sys.argv))
 
-def main():
-    my_input = os.environ["INPUT_MYINPUT"]
-
-    my_output = f"Hello {my_input}"
-
-    print(f"::set-output name=myOutput::{my_output}")
-
-
-if __name__ == "__main__":
-    main()
+encoder = DataMatrixEncoder('This is a DataMatrix.')
+encoder.save('./datamatrix_test.png')
+print(encoder.get_ascii())
