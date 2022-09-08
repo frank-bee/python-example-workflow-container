@@ -55,8 +55,8 @@ jobs:
         with:
           push: false
           tags: |
-            ${{ env.IMAGE }}:${{ steps.prep.outputs.BUILD_ID }}
-            ${{ env.IMAGE }}:${{ steps.prep.outputs.LATEST_ID }}      
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.IMAGE }}:${{ steps.prep.outputs.BUILD_ID }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.IMAGE }}:${{ steps.prep.outputs.LATEST_ID }}      
 
       - name: Push image to Amazon ECR
         env:
