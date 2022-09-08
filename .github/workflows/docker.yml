@@ -7,14 +7,15 @@ on:
     tags-ignore:
       - 'release/*'
 
-env:
-  ECR_REPOSITORY_NAME: python-workflow-container
-
 jobs:
   docker:
     env:
-      IMAGE: kingdonb/any_old_app
+      IMAGE: python-workflow-container
     runs-on: ubuntu-latest
+    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Prepare
         id: prep
