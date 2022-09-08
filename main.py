@@ -7,17 +7,21 @@ print(len(sys.argv))
 print(str(sys.argv))
 
 match sys.argv[1]:
-    case "1":
+    case "A":
         encoder = DataMatrixEncoder('This is a DataMatrix.')
         encoder.save('./datamatrix_test.png')
         print(encoder.get_ascii())
-    case "2":
-        print("!yes, this is a 2!!")
-    case "3":
-        print("!yes, this is a 3!!")
+    case "B":
+        print("!yes, this is a B!!")
+        sys.argv[1]
+    case "C":
+        print("!yes, this is a C!!")
+    case "D":
+        print("!yes, this is a D!!")
 
     # If an exact match is not confirmed, this last case will be used if provided
     case _:
         print("Something's wrong with the internet")
+        print(sys.argv[1])
 
 
