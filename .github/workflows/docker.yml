@@ -17,6 +17,9 @@ jobs:
       id-token: write
       contents: read
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Prepare
         id: prep
         run: |
@@ -50,7 +53,6 @@ jobs:
           BUILD_ID: ${{ steps.prep.outputs.BUILD_ID }}
           LATEST_ID: ${{ steps.prep.outputs.LATEST_ID }}
         run: |
-          ls -a
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$BUILD_ID -t $ECR_REGISTRY/$ECR_REPOSITORY:$LATEST_ID .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags     
 
