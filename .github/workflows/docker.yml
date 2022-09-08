@@ -48,14 +48,14 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@4831715c8c81dbf2ae795f9e285de2a9ee1150b4
 
-      - name: Build, tag, and push dev image to Amazon ECR
-        if: steps.semantic.outputs.new_release_published == 'true'
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ env.ECR_REPOSITORY_NAME }}
-          IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}
-        run: |
-          docker build --build-arg BACKEND_URL=${{ env.BACKEND_URL_DEV }} --build-arg IMAGE_VERSION=${{ steps.semantic.outputs.new_release_version }} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ steps.prep.outputs.BUILD_ID }}
+            ${{ env.IMAGE }}:${{ steps.prep.outputs.LATEST_ID }}            
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
