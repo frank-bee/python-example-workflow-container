@@ -15,9 +15,11 @@ match sys.argv[1]:
         print("!yes, this is a B!!!")
         sys.argv[1]
     case "C":
-        print("!yes, this is a C!!")
+        print("!yes, this is a C!! frank needs some new function")
     case "D":
         print("!yes, this is a D!!")
+    case "D":
+        print("!yes, this is a Dragan!!")        
 
     # If an exact match is not confirmed, this last case will be used if provided
     case _:
