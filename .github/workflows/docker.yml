@@ -11,6 +11,8 @@ jobs:
   docker:
     env:
       IMAGE: python-workflow-container
+      # CHANGE THIS TO THE CORRECT AWS ROLE 
+      AWS_ROLE: arn:aws:iam::1234567890:role/github
     runs-on: ubuntu-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
@@ -39,7 +41,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::504821221385:role/github
+          role-to-assume: ${{ env.AWS_ROLE }}
           aws-region: eu-central-1
 
       - name: Login to Amazon ECR
