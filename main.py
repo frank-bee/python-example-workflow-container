@@ -12,7 +12,7 @@ match sys.argv[1]:
         encoder.save('./datamatrix_test.png')
         print(encoder.get_ascii())
     case "B":
-        print("!yes, this is a B!!")
+        print("!yes, this is a B!!!")
         sys.argv[1]
     case "C":
         print("!yes, this is a C!!")
